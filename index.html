@@ -10,37 +10,33 @@
             background: #ffb6c1; /* Light pink background */
             color: #333;
             text-align: center;
-            padding: 50px;
             margin: 0;
-            transition: background 0.5s;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s;
         }
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            min-height: 400px;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-        h1 {
-            color: #e91e63;
-            font-size: 2.5em;
-            margin-bottom: 20px;
+            align-items: center;
+            position: relative;
         }
         .penguin {
             width: 150px;
             height: auto;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
         .message {
-            font-size: 1.2em;
+            font-size: 2em;
             line-height: 1.6;
             margin: 20px 0;
-            min-height: 100px;
+            transition: all 0.5s;
         }
         .hearts {
             font-size: 2em;
@@ -53,7 +49,6 @@
             gap: 15px;
             flex-wrap: wrap;
             margin-top: 30px;
-            display: none; /* Hidden until message is fully revealed */
         }
         button {
             background: #ff4081;
@@ -73,25 +68,55 @@
         button:active {
             transform: scale(0.95);
         }
-        .yes { background: #4caf50; }
+        .next { background: #2196f3; }
+        .next:hover { background: #1976d2; }
+        .yes {
+            background: #4caf50;
+            padding: 20px 40px;
+            font-size: 1.5em;
+        }
         .yes:hover { background: #388e3c; }
-        .maybe { background: #ff9800; }
-        .maybe:hover { background: #f57c00; }
-        .no { background: #f44336; }
+        .no {
+            background: #f44336;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
         .no:hover { background: #d32f2f; }
+        .fill-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #4caf50;
+            color: white;
+            font-size: 3em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            animation: fill 1s ease-in-out;
+        }
+        @keyframes fill {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💖 Be My Valentine? 💖</h1>
         <img src="https://i.imgur.com/4Q8Z8ZJ.png" alt="Cute Blue Penguin" class="penguin">
         <div class="message" id="message">Hi love love(with cute blue penguin),</div>
         <div class="hearts" id="hearts">❤️💕💖💞</div>
-        <div class="buttons" id="responseButtons">
-            <button class="yes" onclick="alert('Yay! You said yes! 😘')">Yes! 💖</button>
-            <button class="maybe" onclick="alert('Maybe later? I\'ll wait! 😊')">Maybe? 😊</button>
-            <button class="no" onclick="alert('Aww, but I\'ll keep trying! 😢')">No thanks 😢</button>
+        <div class="buttons">
+            <button class="next" id="nextBtn" onclick="nextPage()">hello</button>
+            <div class="hidden" id="finalButtons">
+                <button class="yes" onclick="yesClicked()">Yes! 💖</button>
+                <button class="no" onclick="alert('Aww, but I\'ll keep trying! 😢')">No thanks 😢</button>
+            </div>
         </div>
+        <div class="fill-screen hidden" id="yesScreen">Yay! You said yes! 😘</div>
     </div>
 
     <script>
@@ -102,22 +127,31 @@
             "Hi love love(with cute blue penguin), I know that you're too busy lalo na sa order, but for today and tom, can I have you time :>>, tho I don't have much for tom,",
             "Hi love love(with cute blue penguin), I know that you're too busy lalo na sa order, but for today and tom, can I have you time :>>, tho I don't have much for tom, may I have a 2 part celeb with you :>>"
         ];
+        const buttonLabels = [
+            "hello",
+            "sa truuu",
+            "yes?",
+            "👀",
+            "tapos😤"
+        ];
         let currentPage = 0;
 
-        function revealNextPart() {
+        function nextPage() {
             currentPage++;
             if (currentPage < messageParts.length) {
                 document.getElementById('message').textContent = messageParts[currentPage];
-                setTimeout(revealNextPart, 2000); // Reveal next part after 2 seconds
+                document.getElementById('nextBtn').textContent = buttonLabels[currentPage];
             } else {
-                // Show hearts and response buttons
+                // Show hearts and final yes/no buttons
                 document.getElementById('hearts').style.display = 'block';
-                document.getElementById('responseButtons').style.display = 'flex';
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('finalButtons').classList.remove('hidden');
             }
         }
 
-        // Start revealing after a short delay
-        setTimeout(revealNextPart, 2000);
+        function yesClicked() {
+            document.getElementById('yesScreen').classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
