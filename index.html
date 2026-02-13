@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ffb6c1; /* Light pink background */
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+            transition: background 0.5s;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h1 {
+            color: #e91e63;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .penguin {
+            width: 150px;
+            height: auto;
+            margin: 20px 0;
+        }
+        .message {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 20px 0;
+            min-height: 100px;
+        }
+        .hearts {
+            font-size: 2em;
+            margin: 20px 0;
+            display: none;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            display: none; /* Hidden until message is fully revealed */
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background: #e91e63;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        .yes { background: #4caf50; }
+        .yes:hover { background: #388e3c; }
+        .maybe { background: #ff9800; }
+        .maybe:hover { background: #f57c00; }
+        .no { background: #f44336; }
+        .no:hover { background: #d32f2f; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖 Be My Valentine? 💖</h1>
+        <img src="https://i.imgur.com/4Q8Z8ZJ.png" alt="Cute Blue Penguin" class="penguin">
+        <div class="message" id="message">Hi love love(with cute blue penguin),</div>
+        <div class="hearts" id="hearts">❤️💕💖💞</div>
+        <div class="buttons" id="responseButtons">
+            <button class="yes" onclick="alert('Yay! You said yes! 😘')">Yes! 💖</button>
+            <button class="maybe" onclick="alert('Maybe later? I\'ll wait! 😊')">Maybe? 😊</button>
+            <button class="no" onclick="alert('Aww, but I\'ll keep trying! 😢')">No thanks 😢</button>
+        </div>
+    </div>
+
+    <script>
+        const messageParts = [
+            "Hi love love(with cute blue penguin),",
+            "Hi love love(with cute blue penguin), I know that you're too busy lalo na sa order,",
+            "Hi love love(with cute blue penguin), I know that you're too busy lalo na sa order, but for today and tom, can I have you time :>>,",
+            "Hi love love(with cute blue penguin), I know that you're too busy lalo na sa order, but for today and tom, can I have you time :>>, tho I don't have much for tom,",
+            "Hi love love(with cute blue penguin), I know that you're too busy lalo na sa order, but for today and tom, can I have you time :>>, tho I don't have much for tom, may I have a 2 part celeb with you :>>"
+        ];
+        let currentPage = 0;
+
+        function revealNextPart() {
+            currentPage++;
+            if (currentPage < messageParts.length) {
+                document.getElementById('message').textContent = messageParts[currentPage];
+                setTimeout(revealNextPart, 2000); // Reveal next part after 2 seconds
+            } else {
+                // Show hearts and response buttons
+                document.getElementById('hearts').style.display = 'block';
+                document.getElementById('responseButtons').style.display = 'flex';
+            }
+        }
+
+        // Start revealing after a short delay
+        setTimeout(revealNextPart, 2000);
+    </script>
+</body>
+</html>
